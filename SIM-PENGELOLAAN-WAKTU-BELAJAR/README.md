@@ -4,13 +4,11 @@
 1. Buka terminal atau command prompt.
 2. Clone repository proyek Laravel dari GitHub:
    ```bash
-   git clone https://github.com/username/repository-name.git
+   https://github.com/AndrianFakhruza/SIM-Pengelolaan-Waktu-Belajar
    ```
-   **Gantilah** `username` dan `repository-name` dengan nama pengguna GitHub dan nama repository kalian.
-
 3. Masuk ke direktori proyek yang telah di-clone:
    ```bash
-   cd repository-name
+   cd SIM-Pengelolaan-Waktu-Belajar/SIM-PENGELOLAAN-WAKTU-BELAJAR/
    ```
 
 ---
