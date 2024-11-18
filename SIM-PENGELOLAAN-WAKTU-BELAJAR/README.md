@@ -88,5 +88,3 @@ http://localhost:8000
   ```
 
 ---
-
-Dengan panduan ini, semua anggota tim dapat dengan mudah menjalankan proyek Laravel di sistem mereka masing-masing. 😊
