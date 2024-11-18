@@ -1,5 +1,5 @@
 ﻿# SIM-Pengelolaan-Waktu-Belajar
-================================
+=============================================
 # Panduan Instalasi Laravel (Versi 11.x)
 
 Panduan ini memberikan langkah-langkah rinci untuk menginstal Laravel dan memulai proyek kalian.
