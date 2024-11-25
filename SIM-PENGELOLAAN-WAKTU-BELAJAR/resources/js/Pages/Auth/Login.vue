@@ -50,7 +50,7 @@ const submit = () => {
 
 <template>
     <Head title="Log in" />
-    <main class="">
+    <main class=""> 
         <img
             class="absolute left-0 bottom-7"
             src="/storage/Images/Login/matahari.png"
@@ -122,16 +122,16 @@ const submit = () => {
                             <Link
                                 v-if="canResetPassword"
                                 :href="route('password.request')"
-                                class="underline ml-auto text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                class="underline ml-auto text-sm text-gray-600 hover:text-gray-900 rounded-sm focus:outline-none focus:text-black" 
                             >
                                 Lupa password ?
                             </Link>
                         </div>
                         <br />
-                        <div class="text-center">
+                        <div class="text-center text-gray-600">
                             <p>
                                 belum memiliki akun ?
-                                <a class="font-extrabold" href="/register"
+                                <a class="font-extrabold hover:text-gray-900" href="/register"
                                     >buat akun</a
                                 >
                             </p>
