@@ -3,6 +3,10 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 </script>
 
 <template>
-    <AppLayout title="notification"></AppLayout>
+    <AppLayout title="notification">
+        <div class="">
+
+        </div>
+    </AppLayout>
     
 </template>

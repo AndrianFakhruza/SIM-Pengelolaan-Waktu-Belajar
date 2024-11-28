@@ -6,9 +6,9 @@ import MenuKegiatan from "@/Components/MenuKegiatan.vue";
 
 <template>
     <AppLayout title="Dashboard" class="">
-        <div class="m-6">
+        <div class=" ">
             <!-- Title -->
-            <div class="flex items-center ml-4">
+            <div class="flex items-center mt-5 ml-4 mr-10">
                 <h1 class="font-medium font-poppins text-4xl">
                     Daftar Kegiatan
                 </h1>

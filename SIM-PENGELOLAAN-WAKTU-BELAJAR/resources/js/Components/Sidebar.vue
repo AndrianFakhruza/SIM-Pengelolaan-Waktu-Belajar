@@ -55,7 +55,7 @@ const lampuLogo = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
 </script>
 
 <template>
-    <div class="w-60 flex flex-col border-r-2">
+    <div class="w-96 flex flex-col border-r-2">
         <div class="flex gap-4 ml-4 mt-4">
             <ApplicationLogo />
             <h3 class="text-lg font-semibold text-black-900">Pak Kahfi</h3>
