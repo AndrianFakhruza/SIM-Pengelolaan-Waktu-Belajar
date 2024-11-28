@@ -22,3 +22,7 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+Route::get("/notification", function () {
+    return Inertia::render("Notification");
+})->name("notification");
