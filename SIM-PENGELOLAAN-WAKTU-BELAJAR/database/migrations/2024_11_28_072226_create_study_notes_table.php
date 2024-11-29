@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('study_notes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('schedule_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('schedule_id')->constrained()->onDelete('cascade');
             $table->text('catatan');
             $table->text('feedback');
             $table->timestamps();

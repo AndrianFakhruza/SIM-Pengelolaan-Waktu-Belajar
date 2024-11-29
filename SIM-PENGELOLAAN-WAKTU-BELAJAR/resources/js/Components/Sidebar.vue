@@ -2,6 +2,11 @@
 import { Link, Head, useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 import ApplicationLogo from "./ApplicationLogo.vue";
+import Modal from "./Modal.vue";
+import PrimaryButton from "./PrimaryButton.vue";
+import InputError from "./InputError.vue";
+import { defineProps } from "vue";
+import KategoriModal from "./Modal/KategoriModal.vue";
 
 const LogoHome = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7 10.75H5C2.58 10.75 1.25 9.42 1.25 7V5C1.25 2.58 2.58 1.25 5 1.25H7C9.42 1.25 10.75 2.58 10.75 5V7C10.75 9.42 9.42 10.75 7 10.75ZM5 2.75C3.42 2.75 2.75 3.42 2.75 5V7C2.75 8.58 3.42 9.25 5 9.25H7C8.58 9.25 9.25 8.58 9.25 7V5C9.25 3.42 8.58 2.75 7 2.75H5Z" fill="#787486"/>
@@ -52,15 +57,62 @@ const lampuLogo = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
 <path d="M15.26 22C15.2 22 15.13 21.99 15.07 21.97C13.06 21.4 10.95 21.4 8.94003 21.97C8.57003 22.07 8.18003 21.86 8.08003 21.49C7.97003 21.12 8.19003 20.73 8.56003 20.63C10.82 19.99 13.2 19.99 15.46 20.63C15.83 20.74 16.05 21.12 15.94 21.49C15.84 21.8 15.56 22 15.26 22Z" fill="#FBCB18"/>
 </svg>
 `;
+
+const showModal = ref(false);
+const toggleModal = () => {
+    showModal.value = !showModal.value;
+};
+
+const category = useForm({
+    name: "",
+    description: "",
+});
+
+const submit = () => {
+    category.post(route("category.store"), {
+        onFinish: () => {
+            category.reset();
+            showModal.value = false;
+            categories.value.push({ ...category });
+        },
+    });
+};
+
+const modalkagetori = ref(false);
+const selectKategori = ref([]);
+
+const ModalCategory = (category) => {
+    selectKategori.value = category;
+    modalkagetori.value = !modalkagetori.value;
+};
+
+const truncateText = (Text) => {
+    if (Text.length > 20) {
+        return Text.substring(0, 18) + "...";
+    } else {
+        return Text;
+    }
+};
+
+const props = defineProps({
+    categories: Array,
+    default: [],
+});
+const categories = ref(props.categories || []);
 </script>
 
 <template>
     <div class="w-96 flex flex-col border-r-2">
+        <!-- Logo -->
         <div class="flex gap-4 ml-4 mt-4">
             <ApplicationLogo />
             <h3 class="text-lg font-semibold text-black-900">Pak Kahfi</h3>
         </div>
+
+        <!-- Border -->
         <hr class="my-6 border-1 border-gray-300" />
+
+        <!-- Menu sidebar -->
         <div>
             <ul class="flex flex-col gap-5 ml-4">
                 <li class="flex items-center gap-4 text-gray-500">
@@ -80,14 +132,108 @@ const lampuLogo = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
                 </li>
             </ul>
         </div>
-        <hr class="mt-10 border-1 border-gray-300" />
+        <hr class="mt-5 border-1 border-gray-300" />
 
+        <!-- add project -->
         <div class="flex items-center gap-4 ml-4 mt-2 text-gray-500">
             <h4>MY PROJECT</h4>
+            <span
+                v-html="addLogo"
+                @click="toggleModal"
+                class="ml-14 cursor-pointer rounded-md transition-transform hover:translate-y-0.5"
+            ></span>
 
-            <span v-html="addLogo" class="ml-10"></span>
+            <!-- Modal -->
+            <Modal :show="showModal" @close="toggleModal">
+                <div class="p-5">
+                    <h4>Daftar Project :</h4>
+                    <div class="mt-5 flex flex-col gap-4">
+                        <input
+                            required
+                            autofocus
+                            type="text"
+                            v-model="category.name"
+                            placeholder="masukan nama project"
+                            class="border-gray-300 rounded-md p-2 placeholder:text-sm w-full"
+                        />
+                        <InputError
+                            class="mt-2"
+                            :message="category.errors.name"
+                        />
+
+                        <input
+                            required
+                            autofocus
+                            type="text"
+                            v-model="category.description"
+                            placeholder="masukan deskripsi"
+                            class="border-gray-300 rounded-md p-2 placeholder:text-sm w-full"
+                        />
+                        <InputError
+                            class="mt-2"
+                            :message="category.errors.description"
+                        />
+
+                        <PrimaryButton @click="submit">
+                            <span>buat</span>
+                        </PrimaryButton>
+                    </div>
+                </div>
+            </Modal>
         </div>
-        <div class="flex flex-col items-center justify-center mt-44 relative">
+        <!-- Data Project -->
+        <div class="min-h-40 mt-1 mx-4 overflow-y-auto scroll-small">
+            <ul class="flex flex-col mx-4 list-disc">
+                <li
+                    class="items-center hover:transition-all whitespace-nowrap hover:shadow-md text-gray-700 text-sm mt-1 hover:bg-orange-100 px-2 py-1 hover:rounded-md cursor-pointer"
+                    v-for="category in categories"
+                    :key="category.id"
+                    @click="ModalCategory(category)"
+                >
+                    {{ truncateText(category.name) }}
+                </li>
+            </ul>
+        </div>
+        <!-- Modal kategori -->
+        <Modal :show="modalkagetori" @close="ModalCategory">
+            <div class="p-5">
+                <h4 class="text-center text-2xl font-semibold">
+                    Daftar Project
+                </h4>
+                <div class="mt-5 flex flex-col gap-4" v-if="selectKategori">
+                    <span>Nama project :</span>
+                    <input
+                        required
+                        autofocus
+                        type="text"
+                        v-model="selectKategori.name"
+                        placeholder="masukan nama project"
+                        class="border-gray-300 rounded-md p-2 placeholder:text-sm w-full"
+                    />
+                    <InputError class="mt-2" :message="category.errors.name" />
+                    <span>Deskripsi :</span>
+
+                    <input
+                        required
+                        autofocus
+                        type="text"
+                        v-model="selectKategori.description"
+                        placeholder="masukan deskripsi"
+                        class="border-gray-300 rounded-md p-2 placeholder:text-sm w-full"
+                    />
+                    <InputError
+                        class="mt-2"
+                        :message="category.errors.description"
+                    />
+
+                    <PrimaryButton @click="submit">
+                        <span class="text-md font-sans">Simpan perubahan</span>
+                    </PrimaryButton>
+                </div>
+            </div>
+        </Modal>
+
+        <div class="flex flex-col items-center justify-center mt-7 relative">
             <span
                 v-html="lampuLogo"
                 class="p-4 rounded-full bg-yellow-50 absolute top-[-50px]"
@@ -111,3 +257,9 @@ const lampuLogo = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
         </div>
     </div>
 </template>
+
+<style>
+ul.list-disc li::marker {
+    color: #e38e49;
+}
+</style>

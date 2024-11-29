@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('deadline');
             $table->enum('prioritas', ['low', 'medium', 'high'])->default('medium');
             $table->enum('status', ['ToDo ', 'Progress', 'Done'])->default('ToDo');
-            $table->foreignId('schedule_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('schedule_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -9,8 +9,10 @@ import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 import Navbar from "@/Components/Navbar.vue";
+import { defineProps } from "vue";
 
-defineProps({
+const props = defineProps({
+    categories: Array,
     title: String,
 });
 
@@ -35,7 +37,7 @@ const logout = () => {
 
 <template>
     <div class="flex font-poppins h-screen">
-        <Sidebar />
+        <Sidebar :categories="props.categories" />
         <Head :title="title">
             <link
                 href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
