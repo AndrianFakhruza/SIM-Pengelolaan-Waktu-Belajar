@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AssigmentController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,5 +22,21 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
-    })->name('dashboard');
+    })->name('dashboardd');
+    Route::get("/dashboard", [CategoryController::class, 'index'])->name("dashboard");
+});
+
+Route::get("/notification", function () {
+    return Inertia::render("Notification");
+})->name("notification");
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::get("/category/{id}", [CategoryController::class, 'index'])->name("category.index");
+    Route::post("/category", [CategoryController::class, 'store'])->name("category.store");
+});
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::get("/assigment/{id}", [AssigmentController::class, 'index'])->name("assigment.show");
+    Route::post("/assigment", [AssigmentController::class, 'store'])->name("assigment.store");
 });

@@ -11,7 +11,7 @@
         "@tailwindcss/typography": "^0.5.10",
         "@vitejs/plugin-vue": "^5.0.0",
         "autoprefixer": "^10.4.16",
-        "axios": "^1.7.4",
+        "axios": "^1.7.8",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.32",
@@ -20,7 +20,9 @@
         "vue": "^3.3.13"
     },
     "dependencies": {
+        "@inertiajs/inertia-vue3": "^0.6.0",
         "@tailwindcss/postcss": "^4.0.0-beta.2",
-        "flowbite": "^2.5.2"
+        "flowbite": "^2.5.2",
+        "vue-router": "^4.5.0"
     }
 }

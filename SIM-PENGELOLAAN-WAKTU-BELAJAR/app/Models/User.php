@@ -66,4 +66,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function assigmnet()
+    {
+        return $this->hasMany(Assigment::class);
+    }
 }
