@@ -22,7 +22,8 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
-    })->name('dashboard');
+    })->name('dashboardd');
+    Route::get("/dashboard", [CategoryController::class, 'index'])->name("dashboard");
 });
 
 Route::get("/notification", function () {
@@ -31,11 +32,11 @@ Route::get("/notification", function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::get("/dashboard", [CategoryController::class, 'index'])->name("dashboard");
+    Route::get("/category/{id}", [CategoryController::class, 'index'])->name("category.index");
     Route::post("/category", [CategoryController::class, 'store'])->name("category.store");
 });
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    // Route::get("/dashboard", [AssigmentController::class, 'index'])->name("dashboard");
+    Route::get("/assigment/{id}", [AssigmentController::class, 'index'])->name("assigment.show");
     Route::post("/assigment", [AssigmentController::class, 'store'])->name("assigment.store");
 });

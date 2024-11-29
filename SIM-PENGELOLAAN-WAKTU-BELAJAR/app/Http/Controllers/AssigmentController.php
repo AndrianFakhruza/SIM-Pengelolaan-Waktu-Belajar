@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Assigment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AssigmentController extends Controller
 {
-    public function index() {}
+    public function index($id)
+    {
+        $assignment = Assigment::find($id);
+        return Inertia::render('Assigment', [
+            'assignment' => $assignment
+        ]);
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -32,5 +39,5 @@ class AssigmentController extends Controller
             'schedule_id' => $validated['schedule_id'],
         ]);
         return redirect()->route('dashboard');
-    }   
+    }
 }

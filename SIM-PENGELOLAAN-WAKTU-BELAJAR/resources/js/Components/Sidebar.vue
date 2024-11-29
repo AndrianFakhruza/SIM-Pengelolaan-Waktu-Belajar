@@ -7,6 +7,10 @@ import PrimaryButton from "./PrimaryButton.vue";
 import InputError from "./InputError.vue";
 import { defineProps } from "vue";
 import KategoriModal from "./Modal/KategoriModal.vue";
+import { Inertia } from "@inertiajs/inertia";
+import { usePage } from "@inertiajs/vue3";
+
+const { url } = usePage();
 
 const LogoHome = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7 10.75H5C2.58 10.75 1.25 9.42 1.25 7V5C1.25 2.58 2.58 1.25 5 1.25H7C9.42 1.25 10.75 2.58 10.75 5V7C10.75 9.42 9.42 10.75 7 10.75ZM5 2.75C3.42 2.75 2.75 3.42 2.75 5V7C2.75 8.58 3.42 9.25 5 9.25H7C8.58 9.25 9.25 8.58 9.25 7V5C9.25 3.42 8.58 2.75 7 2.75H5Z" fill="#787486"/>
@@ -78,12 +82,15 @@ const submit = () => {
     });
 };
 
-const modalkagetori = ref(false);
-const selectKategori = ref([]);
+const selectKategori = ref(null);
 
-const ModalCategory = (category) => {
+const PushCategory = (category) => {
+    console.log(category.id);
+    Inertia.visit("/assigment/" + category.slug);
     selectKategori.value = category;
-    modalkagetori.value = !modalkagetori.value;
+};
+const isActive = (category) => {
+    return url.includes(category.slug);
 };
 
 const truncateText = (Text) => {
@@ -188,14 +195,19 @@ const categories = ref(props.categories || []);
                     class="items-center hover:transition-all whitespace-nowrap hover:shadow-md text-gray-700 text-sm mt-1 hover:bg-orange-100 px-2 py-1 hover:rounded-md cursor-pointer"
                     v-for="category in categories"
                     :key="category.id"
-                    @click="ModalCategory(category)"
+                    :class="{
+                        'bg-orange-100 rounded-md ': isActive(category),
+                    }"
+                    @click.prevent="PushCategory(category)"
                 >
                     {{ truncateText(category.name) }}
                 </li>
             </ul>
         </div>
+
+        <!-- Menuju route yang di klik -->
         <!-- Modal kategori -->
-        <Modal :show="modalkagetori" @close="ModalCategory">
+        <!-- <Modal :show="modalkagetori" @close="PushCategory">
             <div class="p-5">
                 <h4 class="text-center text-2xl font-semibold">
                     Daftar Project
@@ -231,7 +243,7 @@ const categories = ref(props.categories || []);
                     </PrimaryButton>
                 </div>
             </div>
-        </Modal>
+        </Modal> -->
 
         <div class="flex flex-col items-center justify-center mt-7 relative">
             <span
