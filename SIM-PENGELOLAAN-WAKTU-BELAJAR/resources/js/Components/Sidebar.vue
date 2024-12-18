@@ -86,11 +86,11 @@ const selectKategori = ref(null);
 
 const PushCategory = (category) => {
     console.log(category.id);
-    Inertia.visit("/assigment/" + category.slug);
+    Inertia.visit("/assigment/" + category.id);
     selectKategori.value = category;
 };
 const isActive = (category) => {
-    return url.includes(category.slug);
+    return url.includes(category.id);
 };
 
 const truncateText = (Text) => {
@@ -109,7 +109,7 @@ const categories = ref(props.categories || []);
 </script>
 
 <template>
-    <div class="w-96 flex flex-col border-r-2">
+    <div class=" px-5 flex flex-col border-r-2">
         <!-- Logo -->
         <div class="flex gap-4 ml-4 mt-4">
             <ApplicationLogo />
@@ -125,15 +125,11 @@ const categories = ref(props.categories || []);
                 <li class="flex items-center gap-4 text-gray-500">
                     <span v-html="LogoHome"></span>Home
                 </li>
-                <li class="flex items-center gap-4 text-gray-500">
-                    <span v-html="messageLogo"></span>Messages
-                </li>
+             
                 <li class="flex items-center gap-4 text-gray-500">
                     <span v-html="taskLogo"></span>Task
                 </li>
-                <li class="flex items-center gap-4 text-gray-500">
-                    <span v-html="ProfilLogo"></span>Members
-                </li>
+        
                 <li class="flex items-center gap-4 text-gray-500">
                     <span v-html="settingsLogo"></span>Settings
                 </li>

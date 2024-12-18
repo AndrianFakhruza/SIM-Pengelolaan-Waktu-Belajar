@@ -7,20 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Assigment extends Model
 {
     protected $fillable = [
-        'name',
+        'user_id',
+        'category_id',
+        'judul_tugas',
         'deskripsi',
-        'status',
         'deadline',
         'prioritas',
+        'status'
     ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-    public function schedule()
-    {
-        return $this->belongsTo(Schedule::class);
     }
 
     public function user()

@@ -9,6 +9,7 @@ import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
     title: String,
+    idCategory: Number,
     color: {
         type: String,
         default: "border-gray-400",
@@ -18,6 +19,7 @@ const props = defineProps({
         default: "#A6AEBF ",
     },
 });
+console.log(props.idCategory);
 const currentTime = ref("");
 const updateTime = () => {
     const now = new Date();
@@ -54,13 +56,17 @@ const kegiatans = useForm({
     deadline: "",
     prioritas: "",
     status: "",
+    category_id: props.idCategory,
 });
 const submitCreate = () => {
     kegiatans.post(route("assigment.store"), {
-        onFinish: () => {
+        onSuccess: () => {
             kegiatans.reset();
             openToDo.value = !openToDo.value;
-            kegiatans.value.push({ ...kegiatan });
+        },
+        onError: (errors) => {
+            const errmessage = Object.values(errors).flat();
+            alert(errmessage.join("\n"));
         },
     });
 };
@@ -118,6 +124,7 @@ const submitCreate = () => {
                         <div class="relative w-36 ml-5 mb-2">
                             <!-- Dropdown select dengan v-show -->
                             <select
+                                v-model="kegiatans.status"
                                 @click="toggleProgress"
                                 name=""
                                 id=""
@@ -161,6 +168,7 @@ const submitCreate = () => {
                         </div>
                         <div class="text-lg ml-5">:</div>
                         <input
+                            v-model="kegiatans.judul_tugas"
                             type="text"
                             required
                             autofocus
@@ -176,14 +184,15 @@ const submitCreate = () => {
                         <div class="text-lg ml-5">:</div>
                         <div class="relative w-36 ml-5 mb-2">
                             <select
+                                v-model="kegiatans.prioritas"
                                 @click="togglePrioritas"
                                 name=""
                                 id=""
                                 class="mt-2 w-32 rounded-md bg-gray-100 border-gray-300 p-2 transition-all duration-700 ease-in-out hover:bg-gray-200"
                             >
-                                <option value="">low</option>
-                                <option value="">medium</option>
-                                <option value="">high</option>
+                                <option value="low">low</option>
+                                <option value="medium">medium</option>
+                                <option value="high">high</option>
                             </select>
                             <div
                                 :class="{
@@ -210,30 +219,19 @@ const submitCreate = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="mt-6 flex items-center">
-                        <div class="text-sm p-3 w-28 bg-slate-200 rounded-md">
-                            Estimasi
-                        </div>
-                        <div class="text-lg ml-5">:</div>
-                        <input
-                            type="time"
-                            required
-                            autofocus
-                            placeholder="Tambahkan deskripsi"
-                            class="border-gray-300 rounded-md p-2 placeholder:text-sm w-32 ml-4"
-                        />
-                    </div>
+
                     <div class="mt-6 flex items-center">
                         <div class="text-sm p-3 w-28 bg-slate-200 rounded-md">
                             Deadline
                         </div>
                         <div class="text-lg ml-5">:</div>
                         <input
-                            type="date"
+                            type="datetime-local"
+                            v-model="kegiatans.deadline"
                             required
                             autofocus
                             placeholder="Tambahkan deskripsi"
-                            class="border-gray-300 rounded-md p-2 placeholder:text-sm w-32 ml-4"
+                            class="border-gray-300 rounded-md p-2 placeholder:text-sm w-48 ml-4"
                         />
                     </div>
                     <div class="mt-6 flex">
@@ -246,6 +244,7 @@ const submitCreate = () => {
                         <textarea
                             type="text"
                             required
+                            v-model="kegiatans.deskripsi"
                             autofocus
                             placeholder="Tambahkan deskripsi"
                             class="border-gray-300 rounded-md p-2 placeholder:text-sm w-96 ml-4"
