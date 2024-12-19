@@ -79,10 +79,10 @@ const { categories } = usePage().props;
                         alt="Progres Icon"
                         class="block text-4xl mb-2 mx-auto" />
                     <h3 class="font-bold text-lg mb-2">
-                        Bagaimana Cara Mengetahui Progres
+                        Bagaimana Cara Loguot
                     </h3>
                     <p class="text-gray-600">
-                        Kamu bisa mengecek progres di halaman account pada bagian bawah.
+                        Kamu bisa klik foto profile yang ada pada pojok kanan atas setelah itu akan muncul 2 buah buah pilihan, pilih loguot.
                     </p>
                 </div>
 
