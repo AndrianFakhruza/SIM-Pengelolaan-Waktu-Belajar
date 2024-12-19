@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post("/assigment", [AssigmentController::class, 'store'])->name("assigment.store");
 });
 
+
 // Route untuk FAQ
 Route::get('/faq', function () {
     return Inertia::render('FAQ');
