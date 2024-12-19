@@ -60,7 +60,7 @@ const { categories } = usePage().props;
                  <!-- FAQ Item 2 -->
                  <div class="text-center">
                     <img 
-                        :src="`/storage/Images/FAQ/progres.png`" 
+                        :src="`/storage/Images/FAQ/mail.png`" 
                         alt="Progres Icon"
                         class="block text-4xl mb-2 mx-auto" />
                     <h3 class="font-bold text-lg mb-2">
@@ -75,7 +75,7 @@ const { categories } = usePage().props;
                  <!-- FAQ Item 2 -->
                  <div class="text-center">
                     <img 
-                        :src="`/storage/Images/FAQ/progres.png`" 
+                        :src="`/storage/Images/FAQ/blok.png`" 
                         alt="Progres Icon"
                         class="block text-4xl mb-2 mx-auto" />
                     <h3 class="font-bold text-lg mb-2">
